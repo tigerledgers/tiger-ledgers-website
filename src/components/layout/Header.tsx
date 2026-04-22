@@ -27,7 +27,6 @@ export function Header({ solid = false }: HeaderProps) {
 
   useEffect(() => {
     if (solid) {
-      setScrolled(true);
       return;
     }
     const hero = document.getElementById("hero");
@@ -61,6 +60,8 @@ export function Header({ solid = false }: HeaderProps) {
             alt={`${SITE.name} logo`}
             width={300}
             height={128}
+            priority
+            style={{ height: "auto" }}
             className="h-8 w-auto object-contain sm:h-10"
           />
           <span
