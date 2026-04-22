@@ -58,11 +58,10 @@ export function Header({ solid = false }: HeaderProps) {
           <Image
             src={logoSrc}
             alt={`${SITE.name} logo`}
-            width={300}
-            height={128}
+            width={120}
+            height={50}
             priority
-            style={{ height: "auto" }}
-            className="h-8 w-auto object-contain sm:h-10"
+            className="h-6 w-auto object-contain sm:h-8"
           />
           <span
             className={cn(
