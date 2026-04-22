@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS, SITE } from "@/constants/siteData";
 import { SocialLinks } from "@/components/common/SocialLinks";
-const logoSrc = "/logo.png";
+import { imgPath } from "@/lib/imgPath";
+const logoSrc = imgPath("/logo.png");
 
 function isInternalRoute(href: string) {
   return href.startsWith("/");
@@ -28,15 +29,19 @@ export function Footer() {
                 height={50}
                 className="h-8 w-auto object-contain"
               />
-              <span className="font-display text-xl font-semibold">{SITE.name}</span>
+              <span className="font-display text-xl font-semibold">
+                {SITE.name}
+              </span>
             </Link>
             <p className="text-sm leading-relaxed text-navy-foreground/70">
-              Strategic financial leadership and full-service accounting for growing businesses.
+              Strategic financial leadership and full-service accounting for
+              growing businesses.
             </p>
           </div>
           <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer">
             {NAV_ITEMS.map((item) => {
-              const className = "text-sm text-navy-foreground/75 transition-colors hover:text-gold";
+              const className =
+                "text-sm text-navy-foreground/75 transition-colors hover:text-gold";
               if (isInternalRoute(item.href)) {
                 return (
                   <Link key={item.id} href={item.href} className={className}>
@@ -45,7 +50,11 @@ export function Footer() {
                 );
               }
               return (
-                <a key={item.id} href={onHome ? item.href : `/${item.href}`} className={className}>
+                <a
+                  key={item.id}
+                  href={onHome ? item.href : `/${item.href}`}
+                  className={className}
+                >
                   {item.label}
                 </a>
               );

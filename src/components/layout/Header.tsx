@@ -4,12 +4,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/common/NavLink";
 import { CTAButton } from "@/components/common/CTAButton";
 import { NAV_ITEMS, SITE, CTA_LABEL, CTA_HREF } from "@/constants/siteData";
-const logoSrc = "/logo.png";
+import { imgPath } from "@/lib/imgPath";
+const logoSrc = imgPath("/logo.png");
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
@@ -22,7 +28,11 @@ function isInternalRoute(href: string) {
 }
 
 export function Header({ solid = false }: HeaderProps) {
-  const [scrolled, setScrolled] = useState(solid);
+  const [scrolled, setScrolled] = useState(() => {
+    if (solid) return true;
+    if (typeof window === "undefined") return false;
+    return !document.getElementById("hero");
+  });
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +41,6 @@ export function Header({ solid = false }: HeaderProps) {
     }
     const hero = document.getElementById("hero");
     if (!hero) {
-      setScrolled(true);
       return;
     }
     const observer = new IntersectionObserver(
@@ -101,18 +110,27 @@ export function Header({ solid = false }: HeaderProps) {
         </nav>
 
         <div className="hidden md:block">
-          <CTAButton href={solid ? `/${CTA_HREF}` : CTA_HREF}>{CTA_LABEL}</CTAButton>
+          <CTAButton href={solid ? `/${CTA_HREF}` : CTA_HREF}>
+            {CTA_LABEL}
+          </CTAButton>
         </div>
 
         <div className="md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Open menu">
-                <Menu className={cn("h-5 w-5", scrolled ? "text-navy" : "text-white")} />
+                <Menu
+                  className={cn(
+                    "h-5 w-5",
+                    scrolled ? "text-navy" : "text-white",
+                  )}
+                />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-72 bg-background">
-              <SheetTitle className="font-display text-xl text-navy">{SITE.name}</SheetTitle>
+              <SheetTitle className="font-display text-xl text-navy">
+                {SITE.name}
+              </SheetTitle>
               <nav className="mt-8 flex flex-col gap-5" aria-label="Mobile">
                 {NAV_ITEMS.map((item) =>
                   isInternalRoute(item.href) ? (

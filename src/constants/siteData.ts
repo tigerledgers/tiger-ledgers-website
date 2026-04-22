@@ -20,6 +20,7 @@ import type {
   TeamMember,
   HeroSlide,
 } from "@/types";
+import { imgPath } from "@/lib/imgPath";
 
 export const SITE = {
   name: "Tiger Ledgers",
@@ -43,7 +44,7 @@ export const CTA_HREF = "#contact";
 export const HERO_SLIDES: HeroSlide[] = [
   {
     id: "slide-1",
-    image: "/assets/hero-1.avif",
+    image: imgPath("/assets/hero-1.avif"),
     headline: "Strategic Financial Leadership for Growing Businesses",
     subtext:
       "Fractional CFO expertise and full-service accounting under one roof.",
@@ -51,14 +52,14 @@ export const HERO_SLIDES: HeroSlide[] = [
   },
   {
     id: "slide-2",
-    image: "/assets/hero-2.avif",
+    image: imgPath("/assets/hero-2.avif"),
     headline: "Numbers That Tell Your Story",
     subtext:
       "Reporting and insights that turn raw data into confident decisions.",
   },
   {
     id: "slide-3",
-    image: "/assets/hero-3.avif",
+    image: imgPath("/assets/hero-3.avif"),
     headline: "A Trusted Partner in Your Growth",
     subtext: "Accounting, payroll, and tax — handled with precision and care.",
     objectPosition: "center 20%",
@@ -159,7 +160,7 @@ export const TEAM: TeamMember[] = [
     role: "Co-Founder",
     bio: "Seasoned finance leader bringing decades of experience in accounting, controllership, and strategic CFO advisory to growing businesses.",
     linkedin: "https://www.linkedin.com/in/girishbandodakar",
-    image: "/assets/girish.jpeg",
+    image: imgPath("/assets/girish.jpeg"),
   },
   {
     id: "prashant",
@@ -167,7 +168,7 @@ export const TEAM: TeamMember[] = [
     role: "Co-Founder",
     bio: "Operations and technology specialist focused on modern accounting systems, automation, and AI-enabled financial workflows.",
     linkedin: "https://www.linkedin.com/in/ca-prashant-meharwade-b7475015b",
-    image: "/assets/Prashant.jpeg",
+    image: imgPath("/assets/Prashant.jpeg"),
   },
 ];
 
