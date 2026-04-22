@@ -163,10 +163,11 @@ export const TEAM: TeamMember[] = [
   },
   {
     id: "prashant",
-    name: "Prashant",
+    name: "Prashant Meharwade",
     role: "Co-Founder",
     bio: "Operations and technology specialist focused on modern accounting systems, automation, and AI-enabled financial workflows.",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/ca-prashant-meharwade-b7475015b",
+    image: "/assets/Prashant.jpeg",
   },
 ];
 
