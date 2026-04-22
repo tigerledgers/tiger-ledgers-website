@@ -1,4 +1,5 @@
 import { Linkedin } from "lucide-react";
+import Image from "next/image";
 import { SectionWrapper } from "@/components/common/SectionWrapper";
 import { TEAM } from "@/constants/siteData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,9 +24,11 @@ export function AboutUsSection() {
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-navy font-display text-xl font-semibold text-gold">
                     {member.image ? (
-                      <img
+                      <Image
                         src={member.image}
                         alt={member.name}
+                        width={56}
+                        height={56}
                         className="h-full w-full object-cover"
                       />
                     ) : (

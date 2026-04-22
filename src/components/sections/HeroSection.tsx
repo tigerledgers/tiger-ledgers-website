@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { CTAButton } from "@/components/common/CTAButton";
 import { HERO_SLIDES, CTA_LABEL, CTA_HREF } from "@/constants/siteData";
 
@@ -33,12 +34,13 @@ export function HeroSection() {
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0 -z-10"
         >
-          <img
+          <Image
             src={slide.image}
             alt=""
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
             style={{ objectPosition: slide.objectPosition || "center" }}
-            loading="eager"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-br from-navy/85 via-navy/70 to-navy/55" />
         </motion.div>
