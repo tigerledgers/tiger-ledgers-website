@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
-const basePath = process.env.GITHUB_ACTIONS ? "/tiger-ledgers-website" : "";
-
 const nextConfig = {
-  basePath,
-  assetPrefix: basePath,
   output: "export",
   env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
+    NEXT_PUBLIC_BASE_PATH: "",
   },
   images: {
     unoptimized: true,
