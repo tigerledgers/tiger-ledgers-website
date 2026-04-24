@@ -6,9 +6,19 @@ import { BlogFeaturedCard } from "@/components/blog/BlogFeaturedCard";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog — Tiger Ledgers Resource Library",
+  title: "Blog — Finance Insights & Playbooks",
   description:
-    "Insights, playbooks, and industry analysis from the Tiger Ledgers team on accounting, tax, fractional CFO leadership, and modern finance operations.",
+    "Practical guides on accounting, tax strategy, fractional CFO leadership, and modern finance operations for founders and growing businesses.",
+  alternates: {
+    canonical: "https://tigerledgers.com/blog",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://tigerledgers.com/blog",
+    title: "Tiger Ledgers Blog — Finance Insights & Playbooks",
+    description:
+      "Practical guides on accounting, tax strategy, fractional CFO leadership, and modern finance operations for founders and growing businesses.",
+  },
 };
 
 export default function BlogIndex() {
@@ -28,8 +38,9 @@ export default function BlogIndex() {
               The Tiger Ledgers Blog
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Practical perspectives on accounting, tax, and financial leadership for founders and
-              finance teams building durable businesses.
+              Practical perspectives on accounting, tax, and financial
+              leadership for founders and finance teams building durable
+              businesses.
             </p>
           </div>
         </section>

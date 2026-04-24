@@ -6,25 +6,57 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { MarkdownContent } from "@/components/blog/MarkdownContent";
-import { getAllPosts, getPostBySlug, getRelatedPosts, formatPostDate } from "@/lib/blog";
+import { ArticleSchema } from "@/components/seo/ArticleSchema";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import {
+  getAllPosts,
+  getPostBySlug,
+  getRelatedPosts,
+  formatPostDate,
+} from "@/lib/blog";
 
 interface BlogDetailProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: BlogDetailProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: BlogDetailProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: "Article — Tiger Ledgers" };
+  if (!post) return { title: "Article | Tiger Ledgers" };
+
+  const url = `https://tigerledgers.com/blog/${slug}`;
+  // Truncate title to keep under 60 chars when combined with suffix
+  const titleSuffix = " | Tiger Ledgers";
+  const maxTitleLength = 60 - titleSuffix.length;
+  const truncatedTitle =
+    post.title.length > maxTitleLength
+      ? `${post.title.slice(0, maxTitleLength - 1)}…`
+      : post.title;
 
   return {
-    title: `${post.title} — Tiger Ledgers Blog`,
+    title: `${truncatedTitle}${titleSuffix}`,
     description: post.excerpt,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
-      images: [post.cover],
+      url,
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: [post.author],
+      images: [
+        {
+          url: post.cover,
+          width: 1600,
+          height: 900,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -41,9 +73,25 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
   if (!post) notFound();
 
   const related = getRelatedPosts(post.slug, 3);
+  const postUrl = `https://tigerledgers.com/blog/${slug}`;
 
   return (
     <div className="min-h-screen bg-background">
+      <ArticleSchema
+        title={post.title}
+        excerpt={post.excerpt}
+        author={post.author}
+        date={post.date}
+        cover={post.cover}
+        slug={post.slug}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://tigerledgers.com" },
+          { name: "Blog", url: "https://tigerledgers.com/blog" },
+          { name: post.title, url: postUrl },
+        ]}
+      />
       <Header solid />
       <main className="pt-28">
         <article className="px-4 pb-20 sm:px-6">
@@ -66,7 +114,7 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
               <p className="mt-5 flex items-center justify-center gap-3 text-sm text-muted-foreground">
                 <span className="font-medium text-navy/80">{post.author}</span>
                 <span className="text-muted-foreground/50">•</span>
-                <span>{formatPostDate(post.date)}</span>
+                <time dateTime={post.date}>{formatPostDate(post.date)}</time>
               </p>
             </div>
 
@@ -75,10 +123,14 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
                 src={post.cover}
                 alt={post.title}
                 className="aspect-[16/9] w-full object-cover"
+                width={1600}
+                height={900}
               />
             </div>
 
-            <p className="mt-10 text-lg leading-relaxed text-foreground/80">{post.excerpt}</p>
+            <p className="mt-10 text-lg leading-relaxed text-foreground/80">
+              {post.excerpt}
+            </p>
 
             <div className="mt-2">
               <MarkdownContent>{post.content}</MarkdownContent>
@@ -91,7 +143,7 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
             <div className="mx-auto max-w-6xl">
               <div className="mb-8 flex items-end justify-between gap-4">
                 <h2 className="font-display text-2xl font-semibold text-navy sm:text-3xl">
-                  Other blog posts
+                  More from Tiger Ledgers
                 </h2>
                 <Link
                   href="/blog"
